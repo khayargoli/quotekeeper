@@ -1,5 +1,4 @@
 
-import { Quote } from "@prisma/client";
 import prisma from "@/app/db/db";
 import MoveToTrash from "./ui/MoveToTrash";
 import { klee_One } from "../app/fonts";
@@ -10,19 +9,16 @@ const QuoteList = async () => {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     
-    const userWithQuotes = await prisma.user.findUnique({
+    const quotes  = await prisma.quote.findMany({
         where: {
-            id: user?.id,
+          userId: user?.id,
         },
-        include: {
-            quotes: true,
-        },
-    });
+      });
 
     return (
         <>
-            {userWithQuotes?.quotes.length ? <ul>
-                {userWithQuotes?.quotes.map((quote) => (
+            {quotes.length ? <ul>
+                {quotes.map((quote) => (
                     <div key={quote.id} className="flex items-center mb-9 p-4">
                         <div className="mx-auto text-center">
                             <svg className="w-10 h-10 mx-auto mb-3 text-gray-400 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 14">
@@ -35,7 +31,6 @@ const QuoteList = async () => {
 
                                 <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 dark:divide-gray-700">
                                     <cite className="pe-3 font-medium text-sm text-gray-900 dark:text-white">{quote.quoteFrom}</cite>
-                                    <cite className="ps-3 pe-3 text-sm text-gray-500 dark:text-gray-400">{userWithQuotes.email}</cite>
                                     <cite className="ps-3 pe-3 text-sm text-gray-500 dark:text-gray-400">{new Date(quote.createdAt).toDateString()}</cite>
                                     <div className="ps-3 text-sm text-gray-500 dark:text-gray-400"><MoveToTrash quoteId={quote.id} /></div>
                                 </div>
