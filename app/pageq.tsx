@@ -1,28 +1,15 @@
-
-import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
 import QuoteForm from "@/components/quoteForm";
+import { Toaster } from "@/components/ui/toaster";
 import QuoteList from "@/components/quoteList";
 import { Suspense } from "react";
-import { sacramento  } from "../fonts";
-import { redirect } from "next/navigation";
-import AuthButton from "@/components/AuthButton";
+import { sacramento  } from "./fonts";
 
-export default async function ProtectedPage() {
-
-  const supabase = createClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/login");
-  }
-
-
+export default async function Home() {
   return (
     <main>
-      <AuthButton />
+      <Toaster />
       <div className="h-32 p-9 text-start">
         <Label className={`text-6xl ${sacramento.className}`}>Quote Keeper</Label>
       </div>
@@ -41,9 +28,6 @@ export default async function ProtectedPage() {
           <Suspense  fallback={<h1>Loading Quotes....</h1>}>
             <QuoteList  />
           </Suspense>
-        </div>
-        <div>
-          {/* <pre>{JSON.stringify(user , null , 2)}</pre> */}
         </div>
       </div>
     </main>

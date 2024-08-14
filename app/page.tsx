@@ -1,54 +1,84 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import { Metadata } from "next"
+import Link from "next/link"
 
-export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
+import { UserAuthForm } from "@/components/user-auth-form"
+import { Label } from "@/components/ui/label"
+import { sacramento } from "./fonts"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { RocketIcon } from "@radix-ui/react-icons"
 
-  const isSupabaseConnected = canInitSupabaseClient();
+export const metadata: Metadata = {
+  title: "Authentication",
+  description: "Authentication forms built using the components.",
+}
 
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { message: string };
+}) {
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
+    <>
+
+      <div className="relative h-full flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+        <div className="relative h-[400px] md:h-full flex flex-col bg-muted p-10 text-white dark:border-r lg:flex">
+          <div className="absolute inset-0 bg-zinc-900" />
+          <div className="relative z-20 flex items-center text-lg font-medium">
+            <Label className={`text-5xl ${sacramento.className} mb-5`}>Quote Keeper</Label>
+          </div>
+          <div className="relative z-20  mt-auto">
+            <blockquote className="space-y-2">
+              <p className="text-lg">
+                Do you ever feel the need to gather all your favorite quotes in one place?
+              </p>
+              <footer className="text-sm"></footer>
+            </blockquote>
+          </div>
         </div>
-      </nav>
-
-      <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
-      </div>
-
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
-    </div>
-  );
+        <div className="lg:p-8 container mt-5">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+            <div className="flex flex-col space-y-2 text-center">
+              <h1 className="text-2xl font-semibold tracking-tight">
+                Create an account
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Enter your email and password below to create your account
+              </p>
+            </div>
+            <UserAuthForm />
+            {searchParams?.message && (
+              <Alert>
+                <RocketIcon className="h-4 w-4" />
+                <AlertTitle><b>Uh oh!</b></AlertTitle>
+                <AlertDescription>
+                  {searchParams.message}
+                </AlertDescription>
+              </Alert>
+            )}
+            <p className="px-8 text-center text-sm text-muted-foreground">
+              By clicking continue, you agree to our{" "}
+              <Link
+                href="/terms"
+                className="underline underline-offset-4 hover:text-primary"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy"
+                className="underline underline-offset-4 hover:text-primary"
+              >
+                Privacy Policy
+              </Link>
+              .
+            </p>
+            <br />
+            <div className="flex justify-center text-sm">Already have an account?<Link className="underline underline-offset-4 hover:text-primary text-sm "
+              href="/login"
+            >&nbsp;Login here</Link></div>
+          </div>
+        </div>
+      </div >
+    </>
+  )
 }

@@ -1,3 +1,5 @@
+import { createFirstTimeUser } from "@/app/server-actions/actions";
+import { User } from "@/app/types/user";
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
@@ -12,6 +14,13 @@ export async function GET(request: Request) {
   if (code) {
     const supabase = createClient();
     await supabase.auth.exchangeCodeForSession(code);
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user !== null) {
+      const new_user: User = { user_id: user.id, email: user.email!, email_verified: true };
+      await createFirstTimeUser(new_user);
+    }
+
   }
 
   // URL to redirect to after sign up process completes
