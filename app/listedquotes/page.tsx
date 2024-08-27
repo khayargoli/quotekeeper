@@ -56,7 +56,7 @@ const ListedQuotes = async () => {
                     ))}
                 </ul>
             ) : (
-                <div className="h-full flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <h1>No quotes to show.</h1>
                 </div>
             )}
