@@ -8,7 +8,7 @@ interface ProfilePictureUploadProps {
     onUpload: (url: string) => void; // Callback function type
 }
 
-export default function ProfilePictureUpload({ userId, onUpload }: ProfilePictureUploadProps) {
+const ProfilePictureUpload = ({ userId, onUpload }: ProfilePictureUploadProps) => {
     const [uploading, setUploading] = useState<boolean>(false);
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,3 +60,5 @@ export default function ProfilePictureUpload({ userId, onUpload }: ProfilePictur
         </div>
     );
 }
+
+export default ProfilePictureUpload;
