@@ -1,8 +1,8 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
-import QuoteForm from "@/components/quoteForm";
+import QuoteForm from "@/components/QuoteForm";
 import { Toaster } from "@/components/ui/toaster";
-import QuoteList from "@/components/quoteList";
+import QuoteList from "@/components/QuoteList";
 import { Suspense } from "react";
 import { sacramento  } from "./fonts";
 

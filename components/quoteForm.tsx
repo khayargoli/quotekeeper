@@ -9,7 +9,9 @@ import { Textarea } from "./ui/textarea";
 import React from 'react';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { toast, useToast } from "./ui/use-toast";
-import {createQuote} from "@/app/server-actions/actions";
+import { createQuote } from "@/app/server-actions/actions";
+import { Label } from "./ui/label";
+import { Checkbox } from "./ui/checkbox";
 
 const formSchema = z.object({
     quoteFrom: z.string().min(2, {
@@ -18,6 +20,8 @@ const formSchema = z.object({
     quote: z.string().min(2, {
         message: "Must be at least 2 characters.",
     }),
+    public: z.boolean()
+
 })
 
 const QuoteForm = () => {
@@ -27,17 +31,17 @@ const QuoteForm = () => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             quoteFrom: "",
-            quote: ""
+            quote: "",
+            public: false
         },
     })
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
         const formData = new FormData();
-
-        Object.entries(values).forEach(([key, value]) => {
-            formData.append(key, String(value));
-        });
+        formData.set("quoteFrom", values.quoteFrom);
+        formData.set("quote", values.quote);
+        formData.set("public", values.public.toString());
 
         createQuote(formData);
 
@@ -92,6 +96,26 @@ const QuoteForm = () => {
                                     <FormMessage />
                                 </FormItem>
 
+                            )} />
+
+                        <FormField
+                            control={form.control}
+                            name="public"
+                            render={({ field }) => (
+
+                                <FormItem>
+                                    <FormControl>
+                                        <div className="items-top flex space-x-2">
+                                            <Checkbox id="public" checked={field.value}
+                                                onCheckedChange={field.onChange} />
+                                            <div className="grid gap-1.5 leading-none">
+                                                <Label htmlFor="public" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Make my quote public. (Other users can see what you posted.)</Label>
+                                            </div>
+                                        </div>
+
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
                             )} />
                         <Button type="submit">Add Quote</Button>
                     </div>

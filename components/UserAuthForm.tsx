@@ -14,7 +14,7 @@ import { UserLoginSchema } from "@/app/types/zodSchemas"
 
 export function UserAuthForm() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [email, setEmail] = React.useState("");
+  const [phone, setPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
   const { toast } = useToast();
 
@@ -22,7 +22,7 @@ export function UserAuthForm() {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const user = { email: formData.get("email"), password: formData.get("password") };
+    const user = { phone: formData.get("phone"), password: formData.get("password") };
     const validateUser = UserLoginSchema.safeParse(user);
 
     if (!validateUser.success) {
@@ -61,20 +61,20 @@ export function UserAuthForm() {
       <form onSubmit={onSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="email">
-              Email
+            <Label className="sr-only" htmlFor="phone">
+              Phone
             </Label>
             <Input
-              id="email"
-              name="email"
-              placeholder="name@example.com"
-              type="email"
+              id="phone"
+              name="phone"
+              placeholder="Enter your phone number"
+              type="phone"
               autoCapitalize="none"
-              autoComplete="email"
+              autoComplete="phone"
               autoCorrect="off"
               disabled={isLoading}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div className="grid gap-1">
@@ -84,9 +84,10 @@ export function UserAuthForm() {
             <Input
               id="password"
               name="password"
-              placeholder="Password"
+              placeholder="Create a new password"
               type="password"
               autoCapitalize="none"
+              autoComplete="password"
               autoCorrect="off"
               disabled={isLoading}
               value={password}

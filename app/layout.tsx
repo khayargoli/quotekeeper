@@ -16,7 +16,6 @@ export default function RootLayout({
     <html lang="en" className={roboto.className}>
       <body>
         <main className="h-full">
-
           <Toaster />
           {children}
         </main>

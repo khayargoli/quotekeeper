@@ -1,11 +1,11 @@
 import { Metadata } from "next"
 import Link from "next/link"
 
-import { UserAuthForm } from "@/components/user-auth-form"
 import { Label } from "@/components/ui/label"
 import { sacramento } from "./fonts"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { RocketIcon } from "@radix-ui/react-icons"
+import { UserAuthForm } from "@/components/UserAuthForm"
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -42,14 +42,14 @@ export default function Page({
                 Create an account
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email and password below to create your account
+                Enter the details below to create your account
               </p>
             </div>
             <UserAuthForm />
             {searchParams?.message && (
               <Alert>
                 <RocketIcon className="h-4 w-4" />
-                <AlertTitle><b>Uh oh!</b></AlertTitle>
+                <AlertTitle><b>Message</b></AlertTitle>
                 <AlertDescription>
                   {searchParams.message}
                 </AlertDescription>

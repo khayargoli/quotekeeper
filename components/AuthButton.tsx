@@ -1,6 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ExitIcon } from "@radix-ui/react-icons";
+import { Button } from "./ui/button";
 
 export default async function AuthButton() {
   const supabase = createClient();
@@ -20,9 +22,12 @@ export default async function AuthButton() {
   return user ? (
     <div className="flex items-center gap-4">
       <form action={signOut}>
-        <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-          Logout
-        </button>
+        <div className="flex items-center m-4 p-1">
+          <Button>
+            <ExitIcon />&nbsp;&nbsp;Logout
+          </Button>
+        </div>
+
       </form>
     </div>
   ) : (
