@@ -8,7 +8,7 @@ const Page = async () => {
     let quotes: any[] = [];
 
     try {
-        const quotes2 = await prisma.quote.findMany({
+        quotes = await prisma.quote.findMany({
             where: {
                 isPublic: true,
             },
