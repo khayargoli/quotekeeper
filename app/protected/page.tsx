@@ -9,6 +9,7 @@ import AuthButton from "@/components/AuthButton";
 import prisma from "../db/db";
 import QuoteForm from "@/components/QuoteForm";
 import QuoteList from "@/components/QuoteList";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 export default async function Dashboard() {
 
@@ -37,9 +38,14 @@ export default async function Dashboard() {
           <Card className="w-[350px] ml-6">
             <CardHeader>
               <CardTitle>
+                <Avatar className="w-5 h-5 mt-2">
+                  <AvatarImage src={userProfile?.profilePicture || ""} />
+                  <AvatarFallback>P</AvatarFallback>
+                </Avatar>
+                <br />
                 <Label className={`text-xl ${klee_One.className}`}>Welcome, {userProfile?.username}</Label>
                 <br /><br />Add a Quote
-                </CardTitle>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <QuoteForm></QuoteForm>
