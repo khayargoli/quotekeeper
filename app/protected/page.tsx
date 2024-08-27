@@ -2,13 +2,13 @@
 import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
-import QuoteForm from "@/components/QuoteForm";
-import QuoteList from "@/components/QuoteList";
 import { Suspense } from "react";
 import { klee_One, sacramento } from "../fonts";
 import { redirect } from "next/navigation";
 import AuthButton from "@/components/AuthButton";
 import prisma from "../db/db";
+import QuoteForm from "@/components/QuoteForm";
+import QuoteList from "@/components/QuoteList";
 
 export default async function ProtectedPage() {
 
