@@ -5,20 +5,15 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 
 const Page = async () => {
-    let quotes: any[] = [];
 
-    try {
-        quotes = await prisma.quote.findMany({
-            where: {
-                isPublic: true,
-            },
-            include: {
-                user: true,
-            },
-        });
-    } catch (error) {
-        console.error("Error fetching quotes:", error);
-    }
+    const quotes = await prisma.quote.findMany({
+        where: {
+            isPublic: true,
+        },
+        include: {
+            user: true,
+        },
+    });
 
 
     return (
