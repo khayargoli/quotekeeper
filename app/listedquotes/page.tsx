@@ -5,20 +5,27 @@ import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 
 const Page = async () => {
-    const quotes = await prisma.quote.findMany({
-        where: {
-            isPublic: true,
-        },
-        include: {
-            user: true,
-        },
-    });
+    let quotes = [];
+
+    try {
+        quotes = await prisma.quote.findMany({
+            where: {
+                isPublic: true,
+            },
+            include: {
+                user: true,
+            },
+        });
+    } catch (error) {
+        console.error("Error fetching quotes:", error);
+    }
+
 
     return (
         <>
             <div className="flex flex-col items-center justify-center h-32 text-start mt-[30px] m-auto">
                 <Label className={`text-6xl ${sacramento.className}`}>Quote Keeper</Label>
-                <br/>
+                <br />
                 <p className={`text-md ${klee_One.className}`} ><Link href="/protected" className="underline">Join us</Link> to share your quotes to the world</p>
             </div>
             {quotes.length ? (
