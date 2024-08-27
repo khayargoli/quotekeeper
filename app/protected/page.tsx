@@ -10,12 +10,12 @@ import prisma from "../db/db";
 import QuoteForm from "@/components/QuoteForm";
 import QuoteList from "@/components/QuoteList";
 
-export default async function ProtectedPage() {
+export default async function Dashboard() {
 
   const supabase = createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
-
+  console.log('supabase user', user);
   if (!user) {
     return redirect("/");
   }
