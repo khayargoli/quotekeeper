@@ -4,7 +4,7 @@ import { klee_One, sacramento } from '../fonts';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 
-const Page = async () => {
+const ListedQuotes = async () => {
 
     const quotes = await prisma.quote.findMany({
         where: {
@@ -23,7 +23,7 @@ const Page = async () => {
                 <br />
                 <p className={`text-md ${klee_One.className}`} ><Link href="/protected" className="underline">Join us</Link> to share your quotes to the world</p>
             </div>
-            {quotes.length ? (
+            {quotes && quotes.length ? (
                 <ul className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4 px-10 pt-10">
                     {quotes.map((quote) => (
                         <div key={quote.id} className="flex items-center p-4 bg-white">
@@ -65,4 +65,4 @@ const Page = async () => {
     );
 };
 
-export default Page;
+export default ListedQuotes;
