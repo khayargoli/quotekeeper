@@ -15,7 +15,6 @@ const ListedQuotes = async () => {
         },
     });
 
-
     return (
         <>
             <div className="flex flex-col items-center justify-center h-32 text-start mt-[30px] m-auto">
