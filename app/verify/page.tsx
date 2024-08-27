@@ -4,16 +4,17 @@ import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { sacramento } from "../fonts";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { RocketIcon } from "@radix-ui/react-icons";
+import { RocketIcon, UpdateIcon } from "@radix-ui/react-icons";
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useToast } from "@/components/ui/use-toast";
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "@/components/ui/input-otp";
 import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { verifyOTP } from "../server-actions/actions";
 import { SubmitButton } from "@/components/SubmitButton";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 
 const formSchema = z.object({
@@ -30,7 +31,9 @@ export default function Verify({
 }: {
     searchParams: { message: string, phoneNumber?: string };
 }) {
-    const { toast } = useToast();
+
+    const [loading, setLoading] = useState(false);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -49,12 +52,13 @@ export default function Verify({
         //         </pre>
         //     ),
         // })
-
+        setLoading(true);
         const formData = new FormData();
         Object.entries(values).forEach(([key, value]) => {
             formData.append(key, value);
         });
         await verifyOTP(formData);
+        setLoading(false);
     };
 
     return (
@@ -158,12 +162,14 @@ export default function Verify({
                             />
                         </div>
                         <br />
-                        <SubmitButton
+
+                        <Button type="submit"
+                            disabled={loading}
                             className="bg-black rounded-md px-4 py-2 text-white mb-3"
-                            pendingText="Signing In..."
                         >
-                           Verify
-                        </SubmitButton>
+                            {loading && <UpdateIcon className="mr-2 h-4 w-4 animate-spin" />}
+                            Verify
+                        </Button >
                     </form>
                 </Form>
             </div>
