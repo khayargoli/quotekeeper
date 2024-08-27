@@ -3,9 +3,10 @@ import prisma from '../db/db';
 import { klee_One, sacramento } from '../fonts';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { Quote } from '@prisma/client';
 
 const Page = async () => {
-    let quotes = [];
+    let quotes: Quote[] = [];
 
     try {
         quotes = await prisma.quote.findMany({
