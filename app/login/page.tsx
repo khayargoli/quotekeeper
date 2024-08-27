@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { SubmitButton } from "../../components/submit-button";
+
 import { Label } from "@/components/ui/label";
 import { klee_One, sacramento } from "../fonts";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RocketIcon } from "@radix-ui/react-icons";
 import { signIn } from "../server-actions/actions";
 import { Input } from "@/components/ui/input";
+import { SubmitButton } from "@/components/SubmitButton";
 
 export default function Login({
   searchParams,

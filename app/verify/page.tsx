@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { SubmitButton } from "../../components/submit-button";
 import { Label } from "@/components/ui/label";
 import { sacramento } from "../fonts";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -14,6 +13,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "@/comp
 import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { verifyOTP } from "../server-actions/actions";
+import { SubmitButton } from "@/components/SubmitButton";
 
 
 const formSchema = z.object({
