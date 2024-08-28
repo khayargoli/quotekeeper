@@ -28,7 +28,7 @@ export default async function Dashboard() {
   return (
     <main>
       <div className="float-end">
-        <AuthButton />
+        <AuthButton userProfile={userProfile!}/>
       </div>
       <div className="h-32 p-9 text-start">
         <Label className={`text-6xl ${sacramento.className}`}>Quote Keeper</Label> <br />
@@ -38,11 +38,11 @@ export default async function Dashboard() {
           <Card className="w-[350px] ml-6">
             <CardHeader>
               <CardTitle>
-                <Avatar className="w-5 h-5 mt-2">
+                {/* <Avatar className="w-5 h-5 mt-2">
                   <AvatarImage src={userProfile?.profilePicture || ""} />
                   <AvatarFallback>P</AvatarFallback>
                 </Avatar>
-                <br />
+                <br /> */}
                 <Label className={`text-xl ${klee_One.className}`}>Welcome, {userProfile?.username}</Label>
                 <br /><br />Add a Quote
               </CardTitle>

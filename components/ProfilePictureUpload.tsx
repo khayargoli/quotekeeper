@@ -2,10 +2,9 @@
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 
-// Define the type for the props
 interface ProfilePictureUploadProps {
     userId: string;
-    onUpload: (url: string) => void; // Callback function type
+    onUpload: (url: string) => void; 
 }
 
 const ProfilePictureUpload = ({ userId, onUpload }: ProfilePictureUploadProps) => {

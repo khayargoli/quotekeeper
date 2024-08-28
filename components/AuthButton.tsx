@@ -1,10 +1,12 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ExitIcon } from "@radix-ui/react-icons";
-import { Button } from "./ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { User } from "@prisma/client";
 
-export default async function AuthButton() {
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+
+export default async function AuthButton({ userProfile }: { userProfile: User }) {
   const supabase = createClient();
 
   const {
@@ -21,15 +23,30 @@ export default async function AuthButton() {
 
   return user ? (
     <div className="flex items-center gap-4">
-      <form action={signOut}>
-        <div className="flex items-center m-4 p-1">
-          <Button>
+      {/* <form action={signOut}>
+        */}
+      {/* <Button>
             <ExitIcon />&nbsp;&nbsp;Logout
-          </Button>
-        </div>
-
-      </form>
-    </div>
+          </Button> */}
+      <div className="flex items-center m-4 p-1">
+        <DropdownMenu >
+          <DropdownMenuTrigger className=" outline-none">
+            <Avatar className="w-12 h-12 mt-2">
+              <AvatarImage src={userProfile?.profilePicture || ""} />
+              <AvatarFallback>U</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Settings</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem >My Profile</DropdownMenuItem>
+            <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div >
+      {/*
+      </form> */}
+    </div >
   ) : (
     <Link
       href="/login"
