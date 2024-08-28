@@ -3,7 +3,9 @@ import prisma from '../db/db';
 import { klee_One, sacramento } from '../fonts';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-export const revalidate = 0; // Disables caching for this component, fetches on every request.
+
+
+export const dynamic = 'force-dynamic';
 
 const ListedQuotes = async () => {
 
