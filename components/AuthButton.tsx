@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { User } from "@prisma/client";
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { ExitIcon, PersonIcon } from "@radix-ui/react-icons";
 
 export default async function AuthButton({ userProfile }: { userProfile: User }) {
   const supabase = createClient();
@@ -28,7 +29,8 @@ export default async function AuthButton({ userProfile }: { userProfile: User })
       {/* <Button>
             <ExitIcon />&nbsp;&nbsp;Logout
           </Button> */}
-      <div className="flex items-center m-4 p-1">
+      <div className="flex items-center mt-3 mr-4">
+
         <DropdownMenu >
           <DropdownMenuTrigger className=" outline-none">
             <Avatar className="w-12 h-12 mt-2">
@@ -37,10 +39,11 @@ export default async function AuthButton({ userProfile }: { userProfile: User })
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>Settings</DropdownMenuLabel>
+            <DropdownMenuItem ><PersonIcon />&nbsp;&nbsp;My Profile</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem >My Profile</DropdownMenuItem>
-            <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
+            <form>
+              <DropdownMenuItem><ExitIcon />&nbsp;&nbsp;<button formAction={signOut}>Logout</button></DropdownMenuItem>
+            </form>
           </DropdownMenuContent>
         </DropdownMenu>
       </div >
